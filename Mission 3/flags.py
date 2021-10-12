@@ -119,6 +119,9 @@ def european_flag(width):
 		tortue.setheading(0)
 
 def formation():
+	'''
+	Dessine une figure spéciale en utilisant tous les types de drapeaux
+	'''
 	belgian_flag(1600)
 	tortue.goto(0, 0)
 	european_flag(400)
@@ -145,6 +148,6 @@ def formation():
 	for i in range(4):		
 		tortue.goto(-225 + 150*i, -200)
 		belgian_flag(100)
-		
+
 formation()
 turtle.mainloop()

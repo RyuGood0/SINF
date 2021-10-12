@@ -1,0 +1,1 @@
+Dessiner une étoile la seule difficulté, mais au final j'ai su trouvé une meéthode en tournant simplement à 144 degré chaque fois et en faisant un fill.
