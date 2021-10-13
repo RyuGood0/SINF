@@ -6,7 +6,7 @@ def is_correct(PRNG):
         valeurs = []
         seen = []
         for i in range(1000):
-            valeur = r.next_int()
+            valeur = next(r)
             if valeur not in list(range(11)): return False
             if valeur not in seen:
                 seen.append(valeur)
