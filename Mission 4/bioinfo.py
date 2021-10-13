@@ -11,9 +11,7 @@ def positions(s, p):
 	while i < len(s):
 		if s[i:i+len(p)].lower() == p.lower():
 			pos.append(i)
-			i += len(p)
-		else:
-			i += 1
+		i += 1
 
 	return pos
 
@@ -27,5 +25,3 @@ def distance_h(s, p):
 
 def distances_matrice(l):
 	return [[distance_h(l[j], l[i]) for i in range(len(l))] for j in range(len(l))]
-
-print(distances_matrice(["AG", "AT", "GT", "ACG", "ACT"]))
