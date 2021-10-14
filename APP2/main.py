@@ -23,4 +23,44 @@ def obtenir_qcm():
 		print("Il semblerait que le fichier soit invalide, veuillez vérifier puis réessayer")
 		exit(1)
 
-print(obtenir_qcm())
+def shuffle(l):
+	randomised_l = []
+	r = prng(5, len(l))
+	for _ in range(len(l)):
+		ran = next(r)
+		while l[ran] in randomised_l:
+			ran = next(r)
+		randomised_l.append(l[ran])
+	return randomised_l
+
+from qcm import build_questionnaire
+def donner_qcm():
+	mode = mode_de_cotation()
+	fichier = obtenir_qcm()
+	questions = build_questionnaire(fichier)
+	
+	randomised_questions = shuffle(questions)
+	for question in randomised_questions:
+		question[1] = shuffle(question[1])
+
+	poser_questions(randomised_questions)
+
+def poser_questions(questions):
+	answers = []
+	for question in questions:
+		while True:
+			input_str = question[0]
+			for i in range(len(question[1])):
+				input_str += f"\n\t{i+1}. {question[1][i][0]}"
+			answer = input(input_str + "\n")
+			if answer in [str(num) for num in list(range(1, len(question[1])+1))]:
+				break
+
+		answers.append(answer)
+
+	return answers
+
+def coter(réponses, questions, mode):
+	pass
+
+donner_qcm()
