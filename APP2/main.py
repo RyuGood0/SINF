@@ -44,20 +44,18 @@ def donner_qcm():
 	for question in randomised_questions:
 		question[1] = shuffle(question[1])
 
-	réponses, max_cote = poser_questions(randomised_questions)
+	réponses = poser_questions(randomised_questions)
 
 	cote = coter(réponses, randomised_questions, mode)
+	max_cote = obtenir_cote_max(randomised_questions)
 	print(f"Vous avez obtenu {cote}/{max_cote}!")
 
 def poser_questions(questions):
 	answers = []
-	max_cote = 0
 	print('Plusieurs réponses possibles, séparez-les par un ","')
 	for question in questions:
-		trues = sum(x.count(True) for x in question[1])
-		max_cote += trues
 		while True:
-			input_str = question[0] if trues == 1 else question[0]
+			input_str = question[0]
 			for i in range(len(question[1])):
 				input_str += f"\n\t{i+1}. {question[1][i][0]}"
 			answer = input(input_str + "\n")
@@ -73,7 +71,14 @@ def poser_questions(questions):
 					
 		answers.append(answer.replace(" ", "").split(","))
 
-	return answers, max_cote
+	return answers
+
+def obtenir_cote_max(questions):
+	max_cote = 0
+	for question in questions:
+		trues = sum(x.count(True) for x in question[1])
+		max_cote += trues
+	return max_cote
 
 def coter(réponses, questions, mode):
 	cote = 0
@@ -82,6 +87,7 @@ def coter(réponses, questions, mode):
 			if questions[i][1][int(réponses[i][0])-1][1] == True:
 				cote += 1
 			elif mode == "2":
+				print("s")
 				cote -= 1
 		else:
 			for réponse in réponses[i]:
@@ -91,5 +97,3 @@ def coter(réponses, questions, mode):
 					cote -= 1
 	
 	return cote
-
-donner_qcm()
