@@ -23,9 +23,10 @@ def obtenir_qcm():
 		print("Il semblerait que le fichier soit invalide, veuillez vérifier puis réessayer")
 		exit(1)
 
+from time import time
 def shuffle(l):
 	randomised_l = []
-	r = prng(5, len(l))
+	r = prng(int(time()), len(l))
 	for _ in range(len(l)):
 		ran = next(r)
 		while l[ran] in randomised_l:
@@ -43,24 +44,52 @@ def donner_qcm():
 	for question in randomised_questions:
 		question[1] = shuffle(question[1])
 
-	poser_questions(randomised_questions)
+	réponses, max_cote = poser_questions(randomised_questions)
+
+	cote = coter(réponses, randomised_questions, mode)
+	print(f"Vous avez obtenu {cote}/{max_cote}!")
 
 def poser_questions(questions):
 	answers = []
+	max_cote = 0
+	print('Plusieurs réponses possibles, séparez-les par un ","')
 	for question in questions:
+		trues = sum(x.count(True) for x in question[1])
+		max_cote += trues
 		while True:
-			input_str = question[0]
+			input_str = question[0] if trues == 1 else question[0]
 			for i in range(len(question[1])):
 				input_str += f"\n\t{i+1}. {question[1][i][0]}"
 			answer = input(input_str + "\n")
-			if answer in [str(num) for num in list(range(1, len(question[1])+1))]:
+			if len(answer) == 1 and answer in [str(num) for num in list(range(1, len(question[1])+1))]:
 				break
+			else:
+				valid = True
+				for ans in answer.replace(" ", "").split(","):
+					if ans not in [str(num) for num in list(range(1, len(question[1])+1))]:
+						valid = False
+				if valid:
+					break
+					
+		answers.append(answer.replace(" ", "").split(","))
 
-		answers.append(answer)
-
-	return answers
+	return answers, max_cote
 
 def coter(réponses, questions, mode):
-	pass
+	cote = 0
+	for i in range(len(réponses)):
+		if len(réponses[i]) == 1:
+			if questions[i][1][int(réponses[i][0])-1][1] == True:
+				cote += 1
+			elif mode == "2":
+				cote -= 1
+		else:
+			for réponse in réponses[i]:
+				if questions[i][1][int(réponse)-1][1] == True:
+					cote += 1
+				elif mode == "2":
+					cote -= 1
+	
+	return cote
 
 donner_qcm()
