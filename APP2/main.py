@@ -26,7 +26,7 @@ def obtenir_qcm():
 from time import time
 def shuffle(l):
 	randomised_l = []
-	r = prng(int(time()), len(l))
+	r = prng(int(time()*100), len(l))
 	for _ in range(len(l)):
 		ran = next(r)
 		while l[ran] in randomised_l:
