@@ -313,10 +313,5 @@ def distance(commune1, commune2, all_communes):
 def tour_distance(communes, all_communes):
     sum = 0
     for i in range(len(communes)):
-        sum += distance(communes[i][0], communes[i+1 if i+1<len(communes) else 0][0], all_communes)
+        sum += distance(communes[i], communes[i+1 if i+1<len(communes) else 0], all_communes)
     return sum
-
-print(verify_order(all_communes))
-print(coordinate("Zwalm", all_communes))
-print(distance("Zwalm", "Aalst", all_communes))
-print(tour_distance(all_communes[:10], all_communes))
