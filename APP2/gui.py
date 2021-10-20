@@ -37,8 +37,8 @@ def setup_question(question):
 	i = 0
 	for answer in question[1]:
 		answers["vars"].append(tk.IntVar())
-		answers[str(i)] = tk.Checkbutton(question_frame, text=answer[0], font=("Courier", 14), variable=answers["vars"][i], onvalue=1, offvalue=0)
-		answers[str(i)].place(rely=0.25 + i*0.05, relx = 0.4)
+		answers[str(i)] = tk.Checkbutton(question_frame, text=answer[0], font=("Courier", 14), variable=answers["vars"][i], onvalue=1, offvalue=0, wraplength=600, justify="center")
+		answers[str(i)].place(rely=0.3 + i*0.1, relx = 0.1)
 		i += 1
 
 	submit_btn = tk.Button(question_frame, text="Soumettre", command=lambda: submit_answers(answers))
@@ -55,8 +55,6 @@ def start_qcm(qcm):
 
 	questions = builder.build_questionnaire(qcm)
 	randomised_questions = shuffle(questions)
-	for question in randomised_questions:
-		question[1] = shuffle(question[1])
 	
 	global qcm_questions
 	qcm_questions = randomised_questions
