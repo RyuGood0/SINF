@@ -87,7 +87,6 @@ def coter(réponses, questions, mode):
 			if questions[i][1][int(réponses[i][0])-1][1] == True:
 				cote += 1
 			elif mode == "2":
-				print("s")
 				cote -= 1
 		else:
 			for réponse in réponses[i]:
