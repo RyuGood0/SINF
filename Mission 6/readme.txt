@@ -1,0 +1,1 @@
+Il suffit de faire plein de try except pour s'assurer que l'utilisateur effectue les commandes correctement
