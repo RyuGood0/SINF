@@ -2,15 +2,24 @@ print("Welcome to your personalized tool!")
 command = input("> ")
 while True:
     if command[:4] == "file":
-        file = open(command.split(" ")[1], "r")
+        try:
+            file = open(command.split(" ")[1], "r")
+        except:
+            print("Invalid file name.")
     elif command[:4] == "exit":
         exit(0)
     elif command[:3] == "sum":
-        nums = [int(x) for x in command[4:].split(" ")]
-        print(f"{sum(nums)}")
+        try:
+            nums = [float(x) for x in command[4:].split(" ")]
+            print(f"{sum(nums)}")
+        except:
+            print("Please enter numbers.")
     elif command[:3] == "avg":
-        nums = [int(x) for x in command[4:].split(" ")]
-        print(f"{sum(nums)/len(nums)}")
+        try:
+            nums = [float(x) for x in command[4:].split(" ")]
+            print(f"{sum(nums)}")
+        except:
+            print("Please enter numbers.")
     elif command[:4] == "help":
         print("The available commands are: file, info, dictionary, search, sum, avg, help, exit.")
     elif command[:10] == "dictionary":

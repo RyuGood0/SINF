@@ -41,8 +41,6 @@ def donner_qcm():
 	questions = build_questionnaire(fichier)
 	
 	randomised_questions = shuffle(questions)
-	for question in randomised_questions:
-		question[1] = shuffle(question[1])
 
 	réponses = poser_questions(randomised_questions)
 
@@ -96,3 +94,5 @@ def coter(réponses, questions, mode):
 					cote -= 1
 	
 	return cote
+
+donner_qcm()
