@@ -35,8 +35,6 @@ def shuffle(l):
 
 	return randomised_l
 
-print(shuffle([1, 2, 3, 4, 5]))
-
 from qcm import build_questionnaire
 def donner_qcm():
 	mode = mode_de_cotation()
