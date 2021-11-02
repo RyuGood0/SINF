@@ -25,14 +25,17 @@ def obtenir_qcm():
 
 from time import time
 def shuffle(l):
+	temp_l = l.copy()
 	randomised_l = []
-	r = prng(int(time()*100), len(l))
-	for _ in range(len(l)):
-		ran = next(r)
-		while l[ran] in randomised_l:
-			ran = next(r)
-		randomised_l.append(l[ran])
+	while len(randomised_l) != len(l):
+		ran_index = next(prng(int(time()*100), len(temp_l)))
+		
+		randomised_l.append(temp_l[ran_index])
+		temp_l.pop(ran_index)
+
 	return randomised_l
+
+print(shuffle([1, 2, 3, 4, 5]))
 
 from qcm import build_questionnaire
 def donner_qcm():
@@ -94,5 +97,3 @@ def coter(réponses, questions, mode):
 					cote -= 1
 	
 	return cote
-
-donner_qcm()
