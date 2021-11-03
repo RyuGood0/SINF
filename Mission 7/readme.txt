@@ -1,0 +1,1 @@
+Toutes les fonctions sont des one-liners
