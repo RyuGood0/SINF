@@ -104,12 +104,9 @@ def get_lines ( words, index ):
 	for word in words:
 		appearences.append(index[word])
 
-	commun_app = []
-	for app in appearences:
-		if not commun_app:
-			commun_app = app
-		else:
-			sapp = set(app)
-			commun_app = sapp.intersection(commun_app)
+	commun_app = appearences[0]
+	for i in range(1, len(appearences)):
+		sapp = set(appearences[i])
+		commun_app = sapp.intersection(commun_app)
 
 	return list(commun_app)
