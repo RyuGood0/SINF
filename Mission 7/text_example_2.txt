@@ -1,0 +1,4 @@
+Pour assurer que l'outil marche correctement, vous devez ajouter des tests pour vérifier que les fonctions sont correctes;
+par exemple, les tests pour la fonction get_words doivent être mis dans une fonction test_get_words.
+Puisque vous devez tester une fonction qui lit un fichier, créez des petits fichiers pour tester cette fonction;
+il faut soumettre ces fichiers de texte aussi.
