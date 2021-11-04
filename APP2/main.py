@@ -8,8 +8,8 @@ def prng(seed, max):
 
 def mode_de_cotation():
 	while True:
-		mode = input("Veuillez choisir votre mode de cotation :\n\t1. Cool (Une mauvaise réponse n'engage rien)\n\t2. Sévère (Une mauvaise réponse enlève 1 point)\n")
-		if mode in ["1", "2"]:
+		mode = input("Veuillez choisir votre mode de cotation :\n\t1. Cool (Une mauvaise réponse n'engage rien)\n\t2. Sévère (Une mauvaise réponse enlève 1 point)\n\t3. Anti-hasard (Quelqu'un qui répond aléatoirement sera pénalisé)\n\t4. Mode évaluation : affiche les résultats de chaque mode\n>> ")
+		if mode in ["1", "2", "3", "4"]:
 			break
 
 	return mode
@@ -45,9 +45,14 @@ def donner_qcm():
 
 	réponses = poser_questions(randomised_questions)
 
-	cote = coter(réponses, randomised_questions, mode)
-	max_cote = obtenir_cote_max(randomised_questions)
-	print(f"Vous avez obtenu {cote}/{max_cote}!")
+	if mode == "4":
+		modes = ["Cool", "Sévère", "Anti-hasard"]
+		for i in range(1, 4):
+			cote, max_cote = coter(réponses, randomised_questions, str(i))
+			print(f"Vous avez obtenu {cote}/{max_cote} en mode {modes[i-1]}!")
+	else:		
+		cote, max_cote = coter(réponses, randomised_questions, mode)
+		print(f"Vous avez obtenu {cote}/{max_cote}!")
 
 def poser_questions(questions):
 	answers = []
@@ -57,7 +62,7 @@ def poser_questions(questions):
 			input_str = question[0]
 			for i in range(len(question[1])):
 				input_str += f"\n\t{i+1}. {question[1][i][0]}"
-			answer = input(input_str + "\n")
+			answer = input(input_str + "\n>> ")
 			if len(answer) == 1 and answer in [str(num) for num in list(range(1, len(question[1])+1))]:
 				break
 			else:
@@ -79,6 +84,12 @@ def obtenir_cote_max(questions):
 		max_cote += trues
 	return max_cote
 
+def obtenir_reponses_totales(questions):
+	reponses_tot = 0
+	for question in questions:
+		reponses_tot += len(question[1])
+	return reponses_tot
+
 def coter(réponses, questions, mode):
 	cote = 0
 	for i in range(len(réponses)):
@@ -93,5 +104,14 @@ def coter(réponses, questions, mode):
 					cote += 1
 				elif mode == "2":
 					cote -= 1
+
+	max_cote = obtenir_cote_max(questions)
+
+	if mode == "3":
+		moyen_stat = round(obtenir_cote_max(questions)/obtenir_reponses_totales(questions) * obtenir_cote_max(questions))
+		if cote == moyen_stat:
+			cote = 0
 	
-	return cote
+	return cote, max_cote
+
+donner_qcm()
