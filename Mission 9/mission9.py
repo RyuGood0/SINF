@@ -208,7 +208,7 @@ class ArticleReparation(Article):
     Re-définissez la méthode prix() pour calculer un coût fixe de 20 euro plus un coût variable de 35 euro/h. Pour une réparation de 0.75 heures ça donne donc un coût de 20 + 35*0.75 = 46.25 euro HTVA.
     """
     
-    def __init__(self, d, h):
+    def __init__(self, h):
         """
         @pre  d est un string décrivant l'article;
               p est le prix HTVA de l'article;
@@ -216,14 +216,13 @@ class ArticleReparation(Article):
         @post Une instance de la classe ArticleReparation avec une description d, un prix p et une durée de réparation h été crée.
         """
         self.__duree = h
-        self.__description = d
-        super().__init__(d, self.prix())
+        super().__init__("", self.prix())
         
     def description(self):
         """
         @post: retourne la description de cet article, au format: "{description} ({duree} heures)."
         """
-        return f"{self.__description} ({self.__duree} heures)"
+        return f"Réparation ({self.__duree} heures)"
     
     def prix(self):
         """
